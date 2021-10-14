@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import basicAuthenticationMiddleware from './middlewares/basic-authentication.middleware';
+import bearerAthenticationMiddleware from './middlewares/bearer-authenticationmiddleware';
 import errorHandler from './middlewares/error-handler.middleware';
 import authorizationRoute from './routes/authorization.route';
 import statusRoute from './routes/status.route';
@@ -14,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 //Configuração de rotas
 
 app.use(statusRoute)
-app.use(usersRoute)
+app.use(bearerAthenticationMiddleware, usersRoute)
 app.use(authorizationRoute)
 
 //Configuração dos Handler de error
